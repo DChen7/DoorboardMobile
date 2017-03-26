@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/profile_icon"
+        android:icon="@drawable/ic_perm_identity_24dp"
+        android:title="@string/profile_tab"/>
+    <item
+        android:id="@+id/message_icon"
+        android:icon="@drawable/ic_message_black_24px"
+        android:title="@string/messages_tab"/>
+    <item
+        android:id="@+id/schedule_icon"
+        android:icon="@drawable/ic_event_24dp"
+        android:title="@string/schedule_tab"/>
+</menu>

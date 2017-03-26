@@ -25,7 +25,7 @@ public class MainAdapter extends FragmentPagerAdapter {
                 MessageFragment tab2 = new MessageFragment();
                 return tab2;
             case 2:
-                CalendarFragment tab3 = new CalendarFragment();
+                ScheduleFragment tab3 = new ScheduleFragment();
                 return tab3;
             default:
                 return null;
