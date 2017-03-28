@@ -11,8 +11,6 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
-import static com.doorboard3.doorboardmobile.DoorboardContract.MessageEntry.COLUMN_NAME_NAME;
-
 /**
  * Created by danielchen on 3/27/17.
  */
@@ -25,7 +23,8 @@ public class DoorboardDbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + DoorboardContract.MessageEntry.TABLE_NAME + " (" +
                     DoorboardContract.MessageEntry._ID + " INTEGER PRIMARY KEY," +
-                    COLUMN_NAME_NAME + " TEXT," +
+                    DoorboardContract.MessageEntry.COLUMN_NAME_ROOM + " TEXT," +
+                    DoorboardContract.MessageEntry.COLUMN_NAME_NAME + " TEXT," +
                     DoorboardContract.MessageEntry.COLUMN_NAME_PROFILE_PIC + " TEXT," +
                     DoorboardContract.MessageEntry.COLUMN_NAME_DATE_TIME + " TEXT," +
                     DoorboardContract.MessageEntry.COLUMN_NAME_STATUS + " TEXT)";
@@ -52,9 +51,9 @@ public class DoorboardDbHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    public static boolean containsMessageFromUser(SQLiteDatabase db, String name) {
+    public static boolean roomContainsMessages(SQLiteDatabase db, String room) {
         String query = "SELECT * FROM " + DoorboardContract.MessageEntry.TABLE_NAME + " WHERE " +
-                COLUMN_NAME_NAME + " = '" + name + "'";
+                DoorboardContract.MessageEntry.COLUMN_NAME_ROOM + " = '" + room + "'";
         Cursor cursor = db.rawQuery(query, null);
         if(cursor.getCount() <= 0){
             cursor.close();
@@ -64,8 +63,10 @@ public class DoorboardDbHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public static ArrayList<Message> getMessages(SQLiteDatabase db) {
-        String query = "SELECT * FROM " + DoorboardContract.MessageEntry.TABLE_NAME;
+    // Get messages in reverse order, so that more recent messages go to the top
+    public static ArrayList<Message> getMessagesForRoom(SQLiteDatabase db, String room) {
+        String query = "SELECT * FROM " + DoorboardContract.MessageEntry.TABLE_NAME + " WHERE " +
+                DoorboardContract.MessageEntry.COLUMN_NAME_ROOM + " = '" + room + "'";
         Cursor cursor = db.rawQuery(query, null);
         ArrayList messages = new ArrayList<Message>();
         while(cursor.moveToNext()) {
@@ -82,7 +83,13 @@ public class DoorboardDbHelper extends SQLiteOpenHelper {
         }
         cursor.close();
 
-        return messages;
+        // Reverse message order
+        ArrayList reverseOrderMessages = new ArrayList<Message>();
+        for (int i = messages.size() - 1; i >= 0; i--) {
+            reverseOrderMessages.add(messages.get(i));
+        }
+
+        return reverseOrderMessages;
     }
 
     public static String bitmapToBase64(Bitmap bitmap) {

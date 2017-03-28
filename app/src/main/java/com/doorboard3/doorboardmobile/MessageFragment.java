@@ -39,7 +39,7 @@ public class MessageFragment extends Fragment {
 
         // Get messages
         mRecyclerView = (RecyclerView) v.findViewById(R.id.message_list);
-        mAdapter = new MessageAdapter(dbHelper.getMessages(dbHelper.getReadableDatabase()));
+        mAdapter = new MessageAdapter(dbHelper.getMessagesForRoom(dbHelper.getReadableDatabase(), "Iribe 203"));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemViewCacheSize(20);
         mRecyclerView.setDrawingCacheEnabled(true);

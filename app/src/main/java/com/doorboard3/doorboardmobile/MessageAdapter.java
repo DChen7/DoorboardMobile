@@ -1,5 +1,6 @@
 package com.doorboard3.doorboardmobile;
 
+import android.media.ThumbnailUtils;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +31,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
         Message message = messages.get(position);
-        holder.profilePic.setImageBitmap(message.getProfilePic());
+        holder.profilePic.setImageBitmap(ThumbnailUtils.extractThumbnail(message.getProfilePic(), 300, 300));
         holder.name.setText(message.getName());
         holder.dateTime.setText(message.getDateTime());
         holder.status.setText(message.getStatus());
