@@ -3,13 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/light_grey"
     tools:context=".MessageFragment">
 
-    <Spinner
-        android:id="@+id/room_spinner"
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="0px"
-        android:layout_weight="1"/>
+        android:background="@color/white"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <Spinner
+            android:id="@+id/room_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,6 +33,9 @@
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
+        android:padding="12dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
         android:hint="@string/update_message" />
 
 </LinearLayout>
