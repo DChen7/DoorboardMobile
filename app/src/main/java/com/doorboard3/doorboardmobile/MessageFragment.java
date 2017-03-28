@@ -7,11 +7,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
-public class MessageFragment extends Fragment {
+public class MessageFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
+    private DoorboardDbHelper dbHelper;
 
     public static MessageFragment newInstance() {
         MessageFragment fragment = new MessageFragment();
@@ -27,7 +31,7 @@ public class MessageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        DoorboardDbHelper dbHelper = new DoorboardDbHelper(getContext());
+        dbHelper = new DoorboardDbHelper(getContext());
 
 
         // Populate db with test data
@@ -36,6 +40,14 @@ public class MessageFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_message, container, false);
+
+        // Populate drop-down menu
+        Spinner spinner = (Spinner) v.findViewById(R.id.room_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(),
+                R.array.room_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
 
         // Get messages
         mRecyclerView = (RecyclerView) v.findViewById(R.id.message_list);
@@ -46,17 +58,20 @@ public class MessageFragment extends Fragment {
         mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-//
-//        Spinner spinner = (Spinner) v.findViewById(R.id.room_spinner);
-//        // Create an ArrayAdapter using the string array and a default spinner layout
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(),
-//                R.array.room_array, android.R.layout.simple_spinner_item);
-//        // Specify the layout to use when the list of choices appears
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        // Apply the adapter to the spinner
-//        spinner.setAdapter(adapter);
-
 
         return v;
+    }
+
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+
+        String room = (String) parent.getItemAtPosition(pos);
+        mAdapter = new MessageAdapter(dbHelper.getMessagesForRoom(dbHelper.getReadableDatabase(), room));
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
     }
 }
