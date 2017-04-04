@@ -1,5 +1,6 @@
 package com.doorboard3.doorboardmobile;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,7 +10,10 @@ import android.graphics.BitmapFactory;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by danielchen on 3/27/17.
@@ -51,10 +55,10 @@ public class DoorboardDbHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    public static boolean roomContainsMessages(SQLiteDatabase db, String room) {
+    public boolean roomContainsMessages(String room) {
         String query = "SELECT * FROM " + DoorboardContract.MessageEntry.TABLE_NAME + " WHERE " +
                 DoorboardContract.MessageEntry.COLUMN_NAME_ROOM + " = '" + room + "'";
-        Cursor cursor = db.rawQuery(query, null);
+        Cursor cursor = this.getReadableDatabase().rawQuery(query, null);
         if(cursor.getCount() <= 0){
             cursor.close();
             return false;
@@ -64,10 +68,10 @@ public class DoorboardDbHelper extends SQLiteOpenHelper {
     }
 
     // Get messages in reverse order, so that more recent messages go to the top
-    public static ArrayList<Message> getMessagesForRoom(SQLiteDatabase db, String room) {
+    public ArrayList<Message> getMessagesForRoom(String room) {
         String query = "SELECT * FROM " + DoorboardContract.MessageEntry.TABLE_NAME + " WHERE " +
                 DoorboardContract.MessageEntry.COLUMN_NAME_ROOM + " = '" + room + "'";
-        Cursor cursor = db.rawQuery(query, null);
+        Cursor cursor = this.getReadableDatabase().rawQuery(query, null);
         ArrayList messages = new ArrayList<Message>();
         while(cursor.moveToNext()) {
             String pic = cursor.getString(cursor.getColumnIndexOrThrow(
@@ -90,6 +94,116 @@ public class DoorboardDbHelper extends SQLiteOpenHelper {
         }
 
         return reverseOrderMessages;
+    }
+
+    public Message getMessageForNameAndRoom(String name, String room) {
+        String query = "SELECT * FROM " + DoorboardContract.MessageEntry.TABLE_NAME + " WHERE " +
+                DoorboardContract.MessageEntry.COLUMN_NAME_ROOM + " = '" + room + "' AND " +
+                DoorboardContract.MessageEntry.COLUMN_NAME_NAME + " = '" + name + "'";
+        Cursor cursor = this.getReadableDatabase().rawQuery(query, null);
+        if(cursor.getCount() <= 0){
+            cursor.close();
+            return null;
+        }
+        cursor.moveToNext();
+        String pic = cursor.getString(cursor.getColumnIndexOrThrow(
+                DoorboardContract.MessageEntry.COLUMN_NAME_PROFILE_PIC));
+        Bitmap profilePic = base64ToBitmap(pic);
+        String status = cursor.getString(cursor.getColumnIndexOrThrow(
+                DoorboardContract.MessageEntry.COLUMN_NAME_STATUS));
+        String date = cursor.getString(cursor.getColumnIndexOrThrow(
+                DoorboardContract.MessageEntry.COLUMN_NAME_DATE_TIME));
+        cursor.close();
+        return new Message(profilePic, name, status, date);
+    }
+
+    public void deleteMessage(String room) {
+        String query = "DELETE FROM " + DoorboardContract.MessageEntry.TABLE_NAME + " WHERE " +
+                DoorboardContract.MessageEntry.COLUMN_NAME_NAME + " = 'Daniel Chen' AND " +
+                DoorboardContract.MessageEntry.COLUMN_NAME_ROOM + " = '" + room + "'";
+        this.getWritableDatabase().execSQL(query);
+    }
+
+    public void insertMessage(Context ctx, String room, String message) {
+        ContentValues values = new ContentValues();
+        values.put(DoorboardContract.MessageEntry.COLUMN_NAME_ROOM, room);
+        values.put(DoorboardContract.MessageEntry.COLUMN_NAME_NAME, "Daniel Chen");
+        values.put(DoorboardContract.MessageEntry.COLUMN_NAME_STATUS, message);
+        Bitmap b1 = BitmapFactory.decodeResource(ctx.getResources(), R.mipmap.ic_profile_1);
+        values.put(DoorboardContract.MessageEntry.COLUMN_NAME_PROFILE_PIC, DoorboardDbHelper.bitmapToBase64(b1));
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy hh:mm a", Locale.US);
+        values.put(DoorboardContract.MessageEntry.COLUMN_NAME_DATE_TIME, sdf.format(Calendar.getInstance().getTime()));
+
+        // Insert the new row, returning the primary key value of the new row
+        this.getWritableDatabase().insert(DoorboardContract.MessageEntry.TABLE_NAME, null, values);
+    }
+
+//    public ArrayList<ScheduleEvent> getEventsForDate(CalendarDay date) {
+//        int month = date.getMonth() + 1;
+//        int day = date.getDay();
+//        String monthDay = month + "/" + day;
+//        SimpleDateFormat simpleDateformat = new SimpleDateFormat("E"); // the day of the week abbreviated
+//        String dayOfWeek = simpleDateformat.format(date);
+//
+//        String query = "SELECT * FROM " + DoorboardContract.ScheduleEntry.TABLE_NAME;
+//        Cursor cursor = this.getReadableDatabase().rawQuery(query, null);
+//        if(cursor.getCount() <= 0){
+//            cursor.close();
+//            return null;
+//        }
+//
+//        ArrayList events = new ArrayList<ScheduleEvent>();
+//        while(cursor.moveToNext()) {
+//            String entryDate = cursor.getString(cursor.getColumnIndexOrThrow(
+//                    DoorboardContract.ScheduleEntry.COLUMN_NAME_DATE));
+//            String repeat = cursor.getString(cursor.getColumnIndexOrThrow(
+//                    DoorboardContract.ScheduleEntry.COLUMN_NAME_END_REPEAT));
+//            String entryDayOfWeek = cursor.getString(cursor.getColumnIndexOrThrow(
+//                    DoorboardContract.ScheduleEntry.COLUMN_NAME_DAY_OF_WEEK));
+//            String endRepeatDate = cursor.getString(cursor.getColumnIndexOrThrow(
+//                    DoorboardContract.ScheduleEntry.COLUMN_NAME_END_REPEAT));
+//            if (entryDate.equals(monthDay) || repeated(entryDate, entryDayOfWeek, repeat,
+//                    endRepeatDate, month, day, dayOfWeek)) {
+//                String name = cursor.getString(cursor.getColumnIndexOrThrow(
+//                        DoorboardContract.ScheduleEntry.COLUMN_NAME_NAME));
+//                String ID = cursor.getString(cursor.getColumnIndexOrThrow(
+//                        DoorboardContract.ScheduleEntry._ID));
+//                String startTime = cursor.getString(cursor.getColumnIndexOrThrow(
+//                        DoorboardContract.ScheduleEntry.COLUMN_NAME_START_TIME));
+//                String endTime = cursor.getString(cursor.getColumnIndexOrThrow(
+//                        DoorboardContract.ScheduleEntry.COLUMN_NAME_END_REPEAT));
+//                events.add(new ScheduleEvent(ID, name, startTime, endTime));
+//            }
+//        }
+//        cursor.close();
+//
+//        return events.sort(new Comparator() {
+//            @Override
+//            public int compare(Object o1, Object o2) {
+//                return ((ScheduleEvent) o1).startTime.
+//            }
+//        })
+//    }
+
+    private boolean repeated(String entryDate, String entryDayOfWeek, String repeat,
+                             String endRepeatDate, int month, int day, String dayOfWeek) {
+        // if the end repeat date is smaller than the date, return false
+        if (endRepeatDate.compareTo(month + "/" + day) < 0) {
+            return false;
+        }
+        int entryDay = Integer.parseInt(entryDate.substring(entryDate.indexOf("/") + 1));
+        switch (repeat) {
+            case "never":
+                return false;
+            case "daily":
+                return true;
+            case "weekly":
+                return entryDayOfWeek.equals(dayOfWeek);
+            case "monthly":
+                return day == entryDay;
+            default:
+                return false;
+        }
     }
 
     public static String bitmapToBase64(Bitmap bitmap) {

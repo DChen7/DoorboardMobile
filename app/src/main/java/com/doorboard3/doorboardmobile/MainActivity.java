@@ -6,22 +6,21 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static String TAG;
-    private Toolbar toolbar;
+    private BottomNavigationView bottomNavigationView;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TAG = MainActivity.class.getSimpleName();
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+        bundle = this.getIntent().getExtras();
+
+        bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener
@@ -31,16 +30,25 @@ public class MainActivity extends AppCompatActivity {
                         Fragment selectedFragment = null;
                         switch (item.getItemId()) {
                             case R.id.profile_icon:
+                                bottomNavigationView.getMenu().getItem(0).setChecked(true);
+                                bottomNavigationView.getMenu().getItem(1).setChecked(false);
+                                bottomNavigationView.getMenu().getItem(2).setChecked(false);
                                 selectedFragment = ProfileFragment.newInstance();
-                                toolbar.setTitle("Profile");
+                                getSupportActionBar().setTitle("Profile");
                                 break;
                             case R.id.message_icon:
+                                bottomNavigationView.getMenu().getItem(0).setChecked(false);
+                                bottomNavigationView.getMenu().getItem(1).setChecked(true);
+                                bottomNavigationView.getMenu().getItem(2).setChecked(false);
                                 selectedFragment = MessageFragment.newInstance();
-                                toolbar.setTitle("Post a Message");
+                                getSupportActionBar().setTitle("Post a Message");
                                 break;
                             case R.id.schedule_icon:
+                                bottomNavigationView.getMenu().getItem(0).setChecked(false);
+                                bottomNavigationView.getMenu().getItem(1).setChecked(false);
+                                bottomNavigationView.getMenu().getItem(2).setChecked(true);
                                 selectedFragment = ScheduleFragment.newInstance();
-                                toolbar.setTitle("Schedule");
+                                getSupportActionBar().setTitle("Schedule");
                                 break;
                         }
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -50,11 +58,25 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        //Manually displaying the first fragment - one time only
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, ProfileFragment.newInstance());
-        toolbar.setTitle("Profile");
-        transaction.commit();
+        // Go to message fragment if it was from the update message activity
+        if (bundle != null && bundle.getBoolean("UPDATE")) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_layout, MessageFragment.newInstance());
+            bottomNavigationView.getMenu().getItem(0).setChecked(false);
+            bottomNavigationView.getMenu().getItem(1).setChecked(true);
+            bottomNavigationView.getMenu().getItem(0).setChecked(false);
+            getSupportActionBar().setTitle("Post a Message");
+            transaction.commit();
+        } else {
+            // Manually display the first fragment
+            bottomNavigationView.getMenu().getItem(0).setChecked(true);
+            bottomNavigationView.getMenu().getItem(1).setChecked(false);
+            bottomNavigationView.getMenu().getItem(2).setChecked(false);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_layout, ProfileFragment.newInstance());
+            getSupportActionBar().setTitle("Profile");
+            transaction.commit();
+        }
     }
 
 }

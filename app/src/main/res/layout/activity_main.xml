@@ -8,19 +8,18 @@
     android:layout_height="match_parent"
     tools:context="com.doorboard3.doorboardmobile.MainActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:theme="@style/AppTheme"
-        app:popupTheme="@style/MyAppTheme.PopupOverlay" />
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:background="?attr/colorPrimary"-->
+        <!--app:theme="@style/AppTheme"-->
+        <!--app:popupTheme="@style/MyAppTheme.PopupOverlay" />-->
 
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
         android:layout_above="@+id/navigation"
         android:animateLayoutChanges="true">
     </FrameLayout>
