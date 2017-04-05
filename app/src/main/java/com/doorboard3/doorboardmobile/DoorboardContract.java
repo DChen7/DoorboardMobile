@@ -30,11 +30,11 @@ public class DoorboardContract {
         public static final String COLUMN_NAME_START_TIME = "startTime";
         public static final String COLUMN_NAME_END_TIME = "endTime";
         public static final String COLUMN_NAME_DESCRIPTION = "description";
-        public static final String COLUMN_NAME_DAY_OF_WEEK = "dayOfWeek";
-        // This is either never, daily, weekly, or monthly
-        public static final String COLUMN_NAME_REPEAT = "repeat";
-        // This is the date where the repeat ends, inclusive. If never repeat, this is 0.
-        // If there is no end date, this is 13.
-        public static final String COLUMN_NAME_END_REPEAT = "endRepeat";
+//        public static final String COLUMN_NAME_DAY_OF_WEEK = "dayOfWeek";
+//        // This is either never, daily, weekly, or monthly
+//        public static final String COLUMN_NAME_REPEAT = "repeat";
+//        // This is the date where the repeat ends, inclusive. If never repeat, this is 0.
+//        // If there is no end date, this is 13.
+//        public static final String COLUMN_NAME_END_REPEAT = "endRepeat";
     }
 }

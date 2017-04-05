@@ -138,6 +138,18 @@ public class DoorboardDbHelper extends SQLiteOpenHelper {
         this.getWritableDatabase().insert(DoorboardContract.MessageEntry.TABLE_NAME, null, values);
     }
 
+    public void saveEvent(String eventName, String date, String startTime, String endTime, String room, String description) {
+        ContentValues values = new ContentValues();
+        values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_NAME, eventName);
+        values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_DATE, date);
+        values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_START_TIME, startTime);
+        values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_END_TIME, endTime);
+        values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_ROOM, room);
+        values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_DESCRIPTION, description);
+
+        this.getWritableDatabase().insert(DoorboardContract.ScheduleEntry.TABLE_NAME, null, values);
+    }
+
 //    public ArrayList<ScheduleEvent> getEventsForDate(CalendarDay date) {
 //        int month = date.getMonth() + 1;
 //        int day = date.getDay();

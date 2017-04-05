@@ -16,4 +16,22 @@
     <string name="update_message">Update your message...</string>
     <string name="save">Save</string>
     <string name="clear">Clear</string>
+
+    <!-- Strings related to schedule fragment -->
+    <string name="event_name">Name of event</string>
+    <string name="date">Date</string>
+    <string name="start_time">Start Time</string>
+    <string name="end_time">End Time</string>
+    <string name="rooms">Rooms</string>
+    <string name="room_1">Iribe 203</string>
+    <string name="room_2">Iribe 304</string>
+    <string name="repeat">Repeat</string>
+    <string name="never">Never</string>
+    <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
+    <string name="monthly">Montly</string>
+    <string name="forever">Forever</string>
+    <string name="description">Description</string>
+    <string name="cancel">Cancel</string>
+
 </resources>

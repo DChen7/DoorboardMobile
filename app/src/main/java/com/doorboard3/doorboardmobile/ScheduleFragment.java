@@ -1,6 +1,8 @@
 package com.doorboard3.doorboardmobile;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -47,6 +49,15 @@ public class ScheduleFragment extends Fragment {
         mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 //        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+
+        FloatingActionButton addEntry = (FloatingActionButton) v.findViewById(R.id.add_event_fab);
+        addEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AddScheduleActivity.class);
+                startActivity(intent);
+            }
+        });
         return v;
     }
 }

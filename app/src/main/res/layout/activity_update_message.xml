@@ -39,7 +39,6 @@
         <Button
             android:id="@+id/save_button"
             android:background="@color/colorPrimary"
-            android:layout_centerInParent="true"
             android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
