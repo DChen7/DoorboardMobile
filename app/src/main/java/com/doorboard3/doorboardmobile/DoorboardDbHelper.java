@@ -177,7 +177,12 @@ public class DoorboardDbHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + DoorboardContract.ScheduleEntry.TABLE_NAME + " WHERE " +
                 DoorboardContract.ScheduleEntry.COLUMN_NAME_DATE + " = '" + dateStr + "'";
         Cursor cursor = this.getReadableDatabase().rawQuery(query, null);
-        return cursor.getCount() > 0;
+        if (cursor.getCount() > 0) {
+            cursor.close();
+            return true;
+        }
+        cursor.close();
+        return false;
     }
 
     public ArrayList<ScheduleEvent> getEventsForDate(int year, int month, int dayOfMonth) {
@@ -206,6 +211,7 @@ public class DoorboardDbHelper extends SQLiteOpenHelper {
                     DoorboardContract.ScheduleEntry.COLUMN_NAME_DESCRIPTION));
             events.add(new ScheduleEvent(ID, name, date, startTime, endTime, room, description));
         }
+        cursor.close();
         Collections.sort(events, new Comparator<ScheduleEvent>() {
             @Override
             public int compare(ScheduleEvent o1, ScheduleEvent o2) {
