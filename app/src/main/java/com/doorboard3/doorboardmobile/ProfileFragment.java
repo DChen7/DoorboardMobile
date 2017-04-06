@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
@@ -24,7 +25,8 @@ public class ProfileFragment extends Fragment {
     public static int RESULT_UPDATE_INFO = 54;
     private ImageButton photo;
     private Button requestAccess;
-    private EditText info;
+    private TextView info;
+    private Button editInfo;
 
     public static ProfileFragment newInstance() {
         ProfileFragment fragment = new ProfileFragment();
@@ -43,7 +45,8 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         photo = (ImageButton) v.findViewById(R.id.imageButton);
         requestAccess = (Button) v.findViewById(R.id.request_access);
-        info = (EditText) v.findViewById(R.id.info_field);
+        info = (TextView) v.findViewById(R.id.info_field);
+        editInfo = (Button) v.findViewById(R.id.update_info);
 
         photo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +64,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        info.setOnClickListener(new View.OnClickListener() {
+        editInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String infoText = info.getText().toString();
