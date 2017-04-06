@@ -3,12 +3,10 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="20dp"
-    android:layout_marginBottom="10dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
     card_view:cardCornerRadius="@dimen/activity_vertical_margin"
     card_view:cardElevation="10dp"
-    android:clickable="true"
-    android:focusableInTouchMode="true"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
@@ -16,9 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:clickable="true"
-        android:focusableInTouchMode="true">
+        android:gravity="center_vertical" >
 
         <LinearLayout
             android:layout_width="0px"
@@ -26,9 +22,7 @@
             android:layout_weight="2"
             android:layout_marginLeft="15dp"
             android:orientation="vertical"
-            android:gravity="center_vertical"
-            android:clickable="true"
-            android:focusableInTouchMode="true">
+            android:gravity="center_vertical" >
 
             <TextView
                 android:id="@+id/event_name"
@@ -37,9 +31,7 @@
                 android:layout_weight="1"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:textStyle="bold"
-                android:clickable="true"
-                android:focusableInTouchMode="true"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/event_room"
@@ -47,9 +39,7 @@
                 android:layout_height="0px"
                 android:layout_weight="1"
                 android:textColor="@color/black"
-                android:textSize="13sp"
-                android:clickable="true"
-                android:focusableInTouchMode="true"/>
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -58,9 +48,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center_vertical"
-            android:clickable="true"
-            android:focusableInTouchMode="true">
+            android:gravity="center_vertical" >
 
             <TextView
                 android:id="@+id/start_time"
@@ -68,9 +56,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:textColor="@color/black"
-                android:textSize="13sp"
-                android:clickable="true"
-                android:focusableInTouchMode="true"/>
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/end_time"
@@ -78,9 +64,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:textColor="@color/black"
-                android:textSize="13sp"
-                android:clickable="true"
-                android:focusableInTouchMode="true"/>
+                android:textSize="13sp" />
 
         </LinearLayout>
 

@@ -82,4 +82,38 @@ public class Populator {
         }
     }
 
+    public void populateSchedule() {
+
+        // Gets the data repository in write mode
+        SQLiteDatabase wdb = dbHelper.getWritableDatabase();
+
+        if (dbHelper.isEventsEmpty()) {
+            ContentValues values = new ContentValues();
+            values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_DATE, "Fri, April 07, 2017");
+            values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_NAME, "Test 1");
+            values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_START_TIME, "14:30");
+            values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_END_TIME, "15:00");
+            values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_ROOM, "Iribe 203");
+            values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_DESCRIPTION, "Test 1");
+            wdb.insert(DoorboardContract.ScheduleEntry.TABLE_NAME, null, values);
+
+            values = new ContentValues();
+            values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_DATE, "Fri, April 07, 2017");
+            values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_NAME, "Test 3");
+            values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_START_TIME, "08:00");
+            values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_END_TIME, "09:00");
+            values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_ROOM, "Iribe 304");
+            values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_DESCRIPTION, "Test 3");
+            wdb.insert(DoorboardContract.ScheduleEntry.TABLE_NAME, null, values);
+
+            values = new ContentValues();
+            values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_DATE, "Mon, April 10, 2017");
+            values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_NAME, "Test 2");
+            values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_START_TIME, "08:00");
+            values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_END_TIME, "09:00");
+            values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_ROOM, "Iribe 304");
+            values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_DESCRIPTION, "Test 2");
+            wdb.insert(DoorboardContract.ScheduleEntry.TABLE_NAME, null, values);
+        }
+    }
 }

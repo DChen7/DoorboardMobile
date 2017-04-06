@@ -83,7 +83,7 @@ public class AddScheduleActivity extends AppCompatActivity
 
                 startTime.setText(hourOfDay + ":" + (minute == 0 ? "00" : minute) + " " + amPm);
             }
-        }, hour, 0, false);
+        }, hourOfDay, 0, false);
         LinearLayout startTimeLayout = (LinearLayout) findViewById(R.id.pick_start_layout);
         startTimeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +108,7 @@ public class AddScheduleActivity extends AppCompatActivity
                 }
                 endTime.setText(hourOfDay + ":" + (minute == 0 ? "00" : minute) + " " + amPm);
             }
-        }, hour, 30, false);
+        }, hourOfDay, 30, false);
         LinearLayout endTimeLayout = (LinearLayout) findViewById(R.id.pick_end_layout);
         endTimeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
