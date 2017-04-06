@@ -6,10 +6,12 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "";
     private BottomNavigationView bottomNavigationView;
     private Bundle bundle;
 
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Go to message fragment if it was from the update message activity
         if (bundle != null && bundle.getBoolean("UPDATE")) {
+            Log.i(TAG, "MESSAGE???");
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.frame_layout, MessageFragment.newInstance());
             bottomNavigationView.getMenu().getItem(0).setChecked(false);
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Post a Message");
             transaction.commit();
         } else if (bundle != null && bundle.getBoolean("scheduleUpdate")) {
+            Log.i(TAG, "SCHEDULE???");
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.frame_layout, ScheduleFragment.newInstance());
             bottomNavigationView.getMenu().getItem(0).setChecked(false);
@@ -77,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
             transaction.commit();
         } else {
             // Manually display the first fragment
+            Log.i(TAG, "PROFILE???");
             bottomNavigationView.getMenu().getItem(0).setChecked(true);
             bottomNavigationView.getMenu().getItem(1).setChecked(false);
             bottomNavigationView.getMenu().getItem(2).setChecked(false);
