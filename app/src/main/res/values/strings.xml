@@ -12,6 +12,23 @@
     <string name="messages_tab">Messages</string>
     <string name="schedule_tab">Schedule</string>
 
+    <!-- Strings related to profile fragment -->
+    <string name="welcome">Hello, Daniel Chen!</string>
+    <string name="picture">Picture</string>
+    <string name="access_rooms">Accessible Rooms</string>
+    <string name="access_rooms_list">Iribe 203, Iribe 304</string>
+    <string name="request_rooms">Request Access</string>
+    <string name="info">Info</string>
+    <string name="info_field_default">Your information goes here!</string>
+    <string name="info_field"></string>
+
+    <!-- Strings related to requesting access -->
+    <string name= "room">Room</string>
+    <string name= "access_time">Access Period</string>
+    <string name= "reason">Reason for Request</string>
+    <string name="submit">submit</string>
+    <string name="submission_toast">Your request has been sent!</string>
+
     <!-- Strings related to message fragment -->
     <string name="update_message">Update your message...</string>
     <string name="save">Save</string>

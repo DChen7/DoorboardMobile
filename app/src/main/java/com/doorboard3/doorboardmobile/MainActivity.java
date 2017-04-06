@@ -1,5 +1,6 @@
 package com.doorboard3.doorboardmobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -90,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Profile");
             transaction.commit();
         }
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 }

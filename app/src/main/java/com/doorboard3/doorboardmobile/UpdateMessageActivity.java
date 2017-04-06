@@ -24,6 +24,7 @@ public class UpdateMessageActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        getSupportActionBar().setTitle("Update Message");
         editMessage = (EditText) findViewById(R.id.edit_message);
 
         // Set message if it already exists
