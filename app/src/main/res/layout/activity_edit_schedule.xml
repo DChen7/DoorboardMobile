@@ -7,11 +7,275 @@
     android:orientation="vertical"
     tools:context="com.doorboard3.doorboardmobile.EditScheduleActivity">
 
-    <TextView
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="@color/black"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:focusable="true"
+                android:hint="@string/event_name"
+                android:layout_marginBottom="20dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <LinearLayout
+                android:id="@+id/edit_pick_date_layout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="25dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:onClick="showDatePickerDialog" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/date"
+                    android:textSize="18sp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/edit_pick_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <LinearLayout
+                android:id="@+id/edit_pick_start_layout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="25dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/start_time"
+                    android:textSize="18sp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/edit_pick_start"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/edit_pick_end_layout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="25dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/end_time"
+                    android:textSize="18sp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/edit_pick_end"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="25dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rooms"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="10dp"/>
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/edit_room_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <android.support.v7.widget.AppCompatRadioButton
+                            android:id="@+id/edit_radio_room_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/room_1" />
+                        <android.support.v7.widget.AppCompatRadioButton
+                            android:id="@+id/edit_radio_room_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/room_2" />
+                    </RadioGroup>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <LinearLayout
+                android:id="@+id/edit_repeat_group"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="25dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/repeat"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <EditText
+                android:id="@+id/edit_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:focusable="true"
+                android:hint="@string/description"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <!--<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"-->
+            <!--android:id="@+id/repeat_group"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_marginLeft="30dp"-->
+            <!--android:layout_marginRight="25dp"-->
+            <!--android:layout_marginBottom="40dp" >-->
+            <!--<android.support.v7.widget.AppCompatRadioButton-->
+            <!--android:id="@+id/radio_never"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/never" />-->
+            <!--<android.support.v7.widget.AppCompatRadioButton-->
+            <!--android:id="@+id/radio_daily"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/daily" />-->
+            <!--<android.support.v7.widget.AppCompatRadioButton-->
+            <!--android:id="@+id/radio_weekly"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/weekly" />-->
+            <!--<android.support.v7.widget.AppCompatRadioButton-->
+            <!--android:id="@+id/radio_monthly"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/monthly" />-->
+            <!--<android.support.v7.widget.AppCompatRadioButton-->
+            <!--android:id="@+id/radio_forever"-->
+            <!--android:backgroundTint="@color/colorPrimary"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/forever" />-->
+            <!--</RadioGroup>-->
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/delete_event_button"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:text="@string/delete" />
+
+                <Button
+                    android:id="@+id/edit_save_event_button"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/save" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

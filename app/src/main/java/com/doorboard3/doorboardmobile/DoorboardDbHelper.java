@@ -122,6 +122,23 @@ public class DoorboardDbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public boolean isEventsEmpty() {
+        String query = "SELECT * FROM " + DoorboardContract.ScheduleEntry.TABLE_NAME;
+        Cursor cursor = this.getReadableDatabase().rawQuery(query, null);
+        if (cursor.getCount() == 0) {
+            cursor.close();
+            return true;
+        }
+        cursor.close();
+        return false;
+    }
+
+    public void deleteEvent(String ID) {
+        String query = "DELETE FROM " + DoorboardContract.ScheduleEntry.TABLE_NAME + " WHERE " +
+                DoorboardContract.ScheduleEntry._ID + " = '" + ID + "'";
+        this.getWritableDatabase().execSQL(query);
+    }
+
     public Message getMessageForNameAndRoom(String name, String room) {
         String query = "SELECT * FROM " + DoorboardContract.MessageEntry.TABLE_NAME + " WHERE " +
                 DoorboardContract.MessageEntry.COLUMN_NAME_ROOM + " = '" + room + "' AND " +
