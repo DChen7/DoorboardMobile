@@ -5,7 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by danielchen on 4/4/17.
@@ -21,7 +24,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleViewHolder> {
     @Override
     public ScheduleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Inflate the layout, initialize the View Holder
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_entry, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.schedule_entry, parent, false);
         ScheduleViewHolder holder = new ScheduleViewHolder(v);
         return holder;
     }
@@ -29,9 +32,19 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleViewHolder> {
     @Override
     public void onBindViewHolder(ScheduleViewHolder holder, int position) {
         ScheduleEvent event = events.get(position);
+        try {
+            final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            final Date dateObj = sdf.parse(event.startTime);
+            final SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm a");
+            holder.startTime.setText(sdf2.format(dateObj));
+
+            final Date dateObj2 = sdf.parse(event.startTime);
+            holder.endTime.setText(sdf2.format(dateObj2));
+        } catch (final ParseException e) {
+            e.printStackTrace();
+        }
         holder.name.setText(event.name);
-        holder.startTime.setText(event.startTime);
-        holder.endTime.setText(event.endTime);
+        holder.room.setText(event.room);
     }
 
     @Override

@@ -64,8 +64,16 @@ public class MainActivity extends AppCompatActivity {
             transaction.replace(R.id.frame_layout, MessageFragment.newInstance());
             bottomNavigationView.getMenu().getItem(0).setChecked(false);
             bottomNavigationView.getMenu().getItem(1).setChecked(true);
-            bottomNavigationView.getMenu().getItem(0).setChecked(false);
+            bottomNavigationView.getMenu().getItem(2).setChecked(false);
             getSupportActionBar().setTitle("Post a Message");
+            transaction.commit();
+        } else if (bundle != null && bundle.getBoolean("scheduleUpdate")) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_layout, ScheduleFragment.newInstance());
+            bottomNavigationView.getMenu().getItem(0).setChecked(false);
+            bottomNavigationView.getMenu().getItem(1).setChecked(false);
+            bottomNavigationView.getMenu().getItem(2).setChecked(true);
+            getSupportActionBar().setTitle("Schedule");
             transaction.commit();
         } else {
             // Manually display the first fragment

@@ -12,11 +12,13 @@ public class ScheduleViewHolder extends RecyclerView.ViewHolder {
     TextView name;
     TextView startTime;
     TextView endTime;
+    TextView room;
 
     ScheduleViewHolder(View itemView) {
         super(itemView);
-        name = (TextView) itemView.findViewById(R.id.name);
-        startTime = (TextView) itemView.findViewById(R.id.date_time);
-        endTime = (TextView) itemView.findViewById(R.id.status);
+        name = (TextView) itemView.findViewById(R.id.event_name);
+        startTime = (TextView) itemView.findViewById(R.id.start_time);
+        endTime = (TextView) itemView.findViewById(R.id.end_time);
+        room = (TextView) itemView.findViewById(R.id.event_room);
     }
 }

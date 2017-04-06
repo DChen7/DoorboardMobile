@@ -9,10 +9,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Locale;
 
 /**
@@ -24,7 +28,7 @@ public class DoorboardDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Doorboard.db";
 
-    private static final String SQL_CREATE_ENTRIES =
+    private static final String SQL_CREATE_MESSAGES =
             "CREATE TABLE " + DoorboardContract.MessageEntry.TABLE_NAME + " (" +
                     DoorboardContract.MessageEntry._ID + " INTEGER PRIMARY KEY," +
                     DoorboardContract.MessageEntry.COLUMN_NAME_ROOM + " TEXT," +
@@ -33,21 +37,36 @@ public class DoorboardDbHelper extends SQLiteOpenHelper {
                     DoorboardContract.MessageEntry.COLUMN_NAME_DATE_TIME + " TEXT," +
                     DoorboardContract.MessageEntry.COLUMN_NAME_STATUS + " TEXT)";
 
-    private static final String SQL_DELETE_ENTRIES =
+    private static final String SQL_DELETE_MESSAGES =
             "DROP TABLE IF EXISTS " + DoorboardContract.MessageEntry.TABLE_NAME;
+
+    private static final String SQL_CREATE_SCHEDULES =
+            "CREATE TABLE " + DoorboardContract.ScheduleEntry.TABLE_NAME + " (" +
+                    DoorboardContract.ScheduleEntry._ID + " INTEGER PRIMARY KEY," +
+                    DoorboardContract.ScheduleEntry.COLUMN_NAME_ROOM + " TEXT," +
+                    DoorboardContract.ScheduleEntry.COLUMN_NAME_NAME + " TEXT," +
+                    DoorboardContract.ScheduleEntry.COLUMN_NAME_DATE + " TEXT," +
+                    DoorboardContract.ScheduleEntry.COLUMN_NAME_DESCRIPTION + " TEXT," +
+                    DoorboardContract.ScheduleEntry.COLUMN_NAME_START_TIME + " TEXT," +
+                    DoorboardContract.ScheduleEntry.COLUMN_NAME_END_TIME + " TEXT)";
+
+    private static final String SQL_DELETE_SCHEDULES =
+            "DROP TABLE IF EXISTS " + DoorboardContract.ScheduleEntry.TABLE_NAME;
 
     public DoorboardDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_ENTRIES);
+        db.execSQL(SQL_CREATE_MESSAGES);
+        db.execSQL(SQL_CREATE_SCHEDULES);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
-        db.execSQL(SQL_DELETE_ENTRIES);
+        db.execSQL(SQL_DELETE_MESSAGES);
+        db.execSQL(SQL_DELETE_SCHEDULES);
         onCreate(db);
     }
 
@@ -148,6 +167,52 @@ public class DoorboardDbHelper extends SQLiteOpenHelper {
         values.put(DoorboardContract.ScheduleEntry.COLUMN_NAME_DESCRIPTION, description);
 
         this.getWritableDatabase().insert(DoorboardContract.ScheduleEntry.TABLE_NAME, null, values);
+    }
+
+    public boolean containsEvent(CalendarDay date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMMM dd, yyyy", Locale.US);
+        Calendar c = Calendar.getInstance();
+        c.set(date.getYear(), date.getMonth(), date.getDay());
+        String dateStr = sdf.format(c.getTime());
+        String query = "SELECT * FROM " + DoorboardContract.ScheduleEntry.TABLE_NAME + " WHERE " +
+                DoorboardContract.ScheduleEntry.COLUMN_NAME_DATE + " = '" + dateStr + "'";
+        Cursor cursor = this.getReadableDatabase().rawQuery(query, null);
+        return cursor.getCount() > 0;
+    }
+
+    public ArrayList<ScheduleEvent> getEventsForDate(int year, int month, int dayOfMonth) {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMMM dd, yyyy", Locale.US);
+        Calendar c = Calendar.getInstance();
+        c.set(year, month, dayOfMonth);
+        String dateStr = sdf.format(c.getTime());
+        String query = "SELECT * FROM " + DoorboardContract.ScheduleEntry.TABLE_NAME + " WHERE " +
+                DoorboardContract.ScheduleEntry.COLUMN_NAME_DATE + " = '" + dateStr + "'";
+        Cursor cursor = this.getReadableDatabase().rawQuery(query, null);
+        ArrayList<ScheduleEvent> events = new ArrayList<ScheduleEvent>();
+        while(cursor.moveToNext()) {
+            String ID = cursor.getString(cursor.getColumnIndexOrThrow(
+                    DoorboardContract.ScheduleEntry._ID));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(
+                    DoorboardContract.ScheduleEntry.COLUMN_NAME_NAME));
+            String date = cursor.getString(cursor.getColumnIndexOrThrow(
+                    DoorboardContract.ScheduleEntry.COLUMN_NAME_DATE));
+            String startTime = cursor.getString(cursor.getColumnIndexOrThrow(
+                    DoorboardContract.ScheduleEntry.COLUMN_NAME_START_TIME));
+            String endTime = cursor.getString(cursor.getColumnIndexOrThrow(
+                    DoorboardContract.ScheduleEntry.COLUMN_NAME_END_TIME));
+            String room = cursor.getString(cursor.getColumnIndexOrThrow(
+                    DoorboardContract.ScheduleEntry.COLUMN_NAME_ROOM));
+            String description = cursor.getString(cursor.getColumnIndexOrThrow(
+                    DoorboardContract.ScheduleEntry.COLUMN_NAME_DESCRIPTION));
+            events.add(new ScheduleEvent(ID, name, date, startTime, endTime, room, description));
+        }
+        Collections.sort(events, new Comparator<ScheduleEvent>() {
+            @Override
+            public int compare(ScheduleEvent o1, ScheduleEvent o2) {
+                return o1.startTime.compareTo(o2.startTime);
+            }
+        });
+        return events;
     }
 
 //    public ArrayList<ScheduleEvent> getEventsForDate(CalendarDay date) {
