@@ -22,6 +22,13 @@
     <string name="info_field_default">Your information goes here!</string>
     <string name="info_field"></string>
     <string name="update_info">Update Info</string>
+    <string name="info_email"></string>
+    <string name="email">Email</string>
+    <string name="info_phone"></string>
+    <string name="phone">Phone</string>
+    <string name="info_website"></string>
+    <string name="website">Website</string>
+    <string name="info_default">none</string>
 
     <!-- Strings related to requesting access -->
     <string name= "room">Room</string>

@@ -84,6 +84,12 @@ public class UpdateMessageActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                .hideSoftInputFromWindow(editMessage.getWindowToken(), 0);
+    }
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
     }

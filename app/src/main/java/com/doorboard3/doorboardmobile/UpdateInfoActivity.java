@@ -18,8 +18,10 @@ import android.widget.EditText;
 
 public class UpdateInfoActivity extends AppCompatActivity {
 
-    private Button clear;
     private Button save;
+    private EditText email;
+    private EditText phone;
+    private EditText website;
     private EditText info;
     private String currentInfo;
     @Override
@@ -31,33 +33,42 @@ public class UpdateInfoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         info = (EditText) findViewById(R.id.edit_info);
+        email = (EditText) findViewById(R.id.email_edit);
+        phone = (EditText) findViewById(R.id.phone_edit);
+        website = (EditText) findViewById(R.id.website_edit);
         Bundle bundle = getIntent().getExtras();
+        currentInfo = bundle.getString("EMAIL");
+        if (currentInfo != null) {
+            email.setText(currentInfo);
+        }
+        currentInfo = bundle.getString("PHONE");
+        if (currentInfo != null) {
+            phone.setText(currentInfo);
+        }
+        currentInfo = bundle.getString("WEBSITE");
+        if (currentInfo != null) {
+            website.setText(currentInfo);
+        }
         currentInfo = bundle.getString("INFO");
         if (currentInfo != null) {
             info.setText(currentInfo);
         }
 
-        info.requestFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
         save = (Button)findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent i = getIntent();
                 i.putExtra("INFO", info.getText().toString());
+                i.putExtra("EMAIL", email.getText().toString());
+                i.putExtra("PHONE", phone.getText().toString());
+                i.putExtra("WEBSITE", website.getText().toString());
                 setResult(Activity.RESULT_OK, i);
                 finish();
             }
         });
 
-        clear = (Button) findViewById(R.id.clear);
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                info.setText("");
-            }
-        });
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
