@@ -21,6 +21,7 @@
     <string name="info">Info</string>
     <string name="info_field_default">Your information goes here!</string>
     <string name="info_field"></string>
+    <string name="update_info">Update Info</string>
 
     <!-- Strings related to requesting access -->
     <string name= "room">Room</string>
