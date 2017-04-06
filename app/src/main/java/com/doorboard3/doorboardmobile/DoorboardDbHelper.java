@@ -115,6 +115,13 @@ public class DoorboardDbHelper extends SQLiteOpenHelper {
         return reverseOrderMessages;
     }
 
+    public void clearDB() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(SQL_DELETE_MESSAGES);
+        db.execSQL(SQL_DELETE_SCHEDULES);
+        onCreate(db);
+    }
+
     public Message getMessageForNameAndRoom(String name, String room) {
         String query = "SELECT * FROM " + DoorboardContract.MessageEntry.TABLE_NAME + " WHERE " +
                 DoorboardContract.MessageEntry.COLUMN_NAME_ROOM + " = '" + room + "' AND " +
