@@ -16,15 +16,18 @@ import java.util.Date;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleViewHolder> {
     private ArrayList<ScheduleEvent> events;
+    private View.OnClickListener listener;
 
-    public ScheduleAdapter(ArrayList<ScheduleEvent> events) {
+    public ScheduleAdapter(ArrayList<ScheduleEvent> events, View.OnClickListener listener) {
         this.events = events;
+        this.listener = listener;
     }
 
     @Override
     public ScheduleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Inflate the layout, initialize the View Holder
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.schedule_entry, parent, false);
+        v.setOnClickListener(listener);
         ScheduleViewHolder holder = new ScheduleViewHolder(v);
         return holder;
     }
@@ -38,7 +41,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleViewHolder> {
             final SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm a");
             holder.startTime.setText(sdf2.format(dateObj));
 
-            final Date dateObj2 = sdf.parse(event.startTime);
+            final Date dateObj2 = sdf.parse(event.endTime);
             holder.endTime.setText(sdf2.format(dateObj2));
         } catch (final ParseException e) {
             e.printStackTrace();

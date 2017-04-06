@@ -21,7 +21,8 @@
         <activity
             android:name=".UpdateMessageActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".AddScheduleActivity"></activity>
+        <activity android:name=".AddScheduleActivity" />
+        <activity android:name=".EditScheduleActivity"></activity>
     </application>
 
 </manifest>

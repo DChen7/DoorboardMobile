@@ -19,12 +19,14 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class ScheduleFragment extends Fragment {
+public class ScheduleFragment extends Fragment implements View.OnClickListener{
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private DoorboardDbHelper dbHelper;
     private EventDecorator decorator;
+    private ArrayList<ScheduleEvent> events;
+    private int fragID;
 
     public static ScheduleFragment newInstance() {
         ScheduleFragment fragment = new ScheduleFragment();
@@ -43,6 +45,7 @@ public class ScheduleFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_schedule, container, false);
 
         dbHelper = new DoorboardDbHelper(this.getActivity());
+        fragID = this.getId();
 
         MaterialCalendarView calendarView = (MaterialCalendarView) v.findViewById(R.id.calendar_view);
         calendarView.setDateSelected(Calendar.getInstance(), true);
@@ -52,8 +55,8 @@ public class ScheduleFragment extends Fragment {
                 int year = date.getYear();
                 int month = date.getMonth();
                 int dayOfMonth = date.getDay();
-                ArrayList<ScheduleEvent> events =  dbHelper.getEventsForDate(year, month, dayOfMonth);
-                mAdapter = new ScheduleAdapter(events);
+                events =  dbHelper.getEventsForDate(year, month, dayOfMonth);
+                mAdapter = new ScheduleAdapter(events, (ScheduleFragment) getActivity().getSupportFragmentManager().findFragmentById(fragID));
                 mRecyclerView.setAdapter(mAdapter);
             }
         });
@@ -86,9 +89,8 @@ public class ScheduleFragment extends Fragment {
         mRecyclerView.setItemViewCacheSize(20);
         mRecyclerView.setDrawingCacheEnabled(true);
         mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        ArrayList<ScheduleEvent> events = dbHelper.getEventsForDate(
-                c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-        mAdapter = new ScheduleAdapter(events);
+        events = dbHelper.getEventsForDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+        mAdapter = new ScheduleAdapter(events, this);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
@@ -101,5 +103,20 @@ public class ScheduleFragment extends Fragment {
             }
         });
         return v;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int itemPosition = mRecyclerView.getChildLayoutPosition(v);
+        ScheduleEvent item = events.get(itemPosition);
+        Intent intent = new Intent(v.getContext(), EditScheduleActivity.class);
+        intent.putExtra("ID", item.ID);
+        intent.putExtra("name", item.name);
+        intent.putExtra("date", item.date);
+        intent.putExtra("startTime", item.startTime);
+        intent.putExtra("endTime", item.endTime);
+        intent.putExtra("room", item.room);
+        intent.putExtra("description", item.description);
+        startActivity(intent);
     }
 }
