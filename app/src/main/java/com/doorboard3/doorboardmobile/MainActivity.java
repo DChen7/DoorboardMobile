@@ -9,10 +9,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-
+import static android.content.ContentValues.TAG;
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "";
     private BottomNavigationView bottomNavigationView;
     private Bundle bundle;
 
@@ -20,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        DoorboardDbHelper dbHelper = new DoorboardDbHelper(this);
+//        dbHelper.clearDB();
 
         bundle = this.getIntent().getExtras();
 
@@ -83,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // Manually display the first fragment
             Log.i(TAG, "PROFILE???");
+            Log.i(TAG, bottomNavigationView.getMenu().getItem(0).toString());
+            Log.i(TAG, bottomNavigationView.getMenu().getItem(1).toString());
+            Log.i(TAG, bottomNavigationView.getMenu().getItem(2).toString());
             bottomNavigationView.getMenu().getItem(0).setChecked(true);
             bottomNavigationView.getMenu().getItem(1).setChecked(false);
             bottomNavigationView.getMenu().getItem(2).setChecked(false);
