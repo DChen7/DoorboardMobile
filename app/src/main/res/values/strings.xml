@@ -18,7 +18,7 @@
     <string name="access_rooms">Accessible Rooms</string>
     <string name="access_rooms_list">Iribe 203, Iribe 304</string>
     <string name="request_rooms">Request Access</string>
-    <string name="info">Info</string>
+    <string name="info">Additional Info</string>
     <string name="info_field_default">Your information goes here!</string>
     <string name="info_field"></string>
     <string name="update_info">Update Info</string>

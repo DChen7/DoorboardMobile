@@ -159,6 +159,7 @@
                         android:gravity="top"
                         android:hint="@string/info_default"
                         android:maxWidth="30dp"
+                        android:text="email@email.com"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -227,6 +228,7 @@
                         android:gravity="top"
                         android:hint="@string/info_default"
                         android:maxWidth="30dp"
+                        android:text="www.google.com"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
                 </LinearLayout>
