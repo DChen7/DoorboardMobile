@@ -49,8 +49,7 @@ public class UpdateMessageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dbHelper.deleteMessage(room);
                 String msg = editMessage.getText().toString();
-                if (!msg.equals(""))
-                    dbHelper.insertMessage(getApplicationContext(), room, msg);
+                dbHelper.insertMessage(getApplicationContext(), room, msg);
                 Bundle bundle = new Bundle();
                 bundle.putString("ROOM", room);
                 bundle.putBoolean("UPDATE", true);
