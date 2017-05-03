@@ -170,9 +170,9 @@ public class DoorboardDbHelper extends SQLiteOpenHelper {
     public void insertMessage(Context ctx, String room, String message) {
         ContentValues values = new ContentValues();
         values.put(DoorboardContract.MessageEntry.COLUMN_NAME_ROOM, room);
-        values.put(DoorboardContract.MessageEntry.COLUMN_NAME_NAME, "Daniel Chen");
+        values.put(DoorboardContract.MessageEntry.COLUMN_NAME_NAME, "David Mount");
         values.put(DoorboardContract.MessageEntry.COLUMN_NAME_STATUS, message);
-        Bitmap b1 = BitmapFactory.decodeResource(ctx.getResources(), R.mipmap.ic_profile_1);
+        Bitmap b1 = BitmapFactory.decodeResource(ctx.getResources(), R.mipmap.ic_mount);
         values.put(DoorboardContract.MessageEntry.COLUMN_NAME_PROFILE_PIC, DoorboardDbHelper.bitmapToBase64(b1));
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy hh:mm a", Locale.US);
         values.put(DoorboardContract.MessageEntry.COLUMN_NAME_DATE_TIME, sdf.format(Calendar.getInstance().getTime()));

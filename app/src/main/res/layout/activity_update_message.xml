@@ -26,13 +26,15 @@
         android:orientation="horizontal"
         android:gravity="center">
 
-        <Button
+        <ImageButton
             android:id="@+id/clear_button"
             android:background="@color/colorPrimary"
             android:layout_marginRight="30dp"
+            android:src="@drawable/ic_attach_file_black_24dp"
             android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="85dp"
+            android:layout_height="48dp"
+            android:tint="@color/white"
             android:gravity="center"
             android:text="@string/clear" />
 

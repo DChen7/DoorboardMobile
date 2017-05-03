@@ -1,42 +1,59 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/light_grey"
     tools:context=".MessageFragment">
 
-    <RelativeLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/light_grey">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0px"
+            android:background="@color/white"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+
+            <Spinner
+                android:id="@+id/room_spinner"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/message_list"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="8" />
+
+        <!--<com.doorboard3.doorboardmobile.CustomEditText-->
+            <!--android:id="@+id/update_message"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0px"-->
+            <!--android:layout_weight="1"-->
+            <!--android:padding="12dp"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:background="@color/white"-->
+            <!--android:hint="@string/update_message"-->
+            <!--android:focusableInTouchMode="false" />-->
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_message_fab"
         android:layout_width="wrap_content"
-        android:layout_height="0px"
-        android:background="@color/white"
-        android:layout_weight="1"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_create_black_24dp" />
 
-        <Spinner
-            android:id="@+id/room_spinner"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
+    </android.support.design.widget.CoordinatorLayout>
 
-    </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/message_list"
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="8" />
-
-    <com.doorboard3.doorboardmobile.CustomEditText
-        android:id="@+id/update_message"
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1"
-        android:padding="12dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/white"
-        android:hint="@string/update_message"
-        android:focusableInTouchMode="false" />
-
-</LinearLayout>

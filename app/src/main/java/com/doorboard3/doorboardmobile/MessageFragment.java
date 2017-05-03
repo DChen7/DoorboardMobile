@@ -2,6 +2,7 @@ package com.doorboard3.doorboardmobile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 
 import static android.content.ContentValues.TAG;
@@ -79,21 +79,33 @@ public class MessageFragment extends Fragment implements AdapterView.OnItemSelec
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
-        // Set behavior of EditText
-        EditText updateMessage = (EditText) v.findViewById(R.id.update_message);
-        updateMessage.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton addEntry = (FloatingActionButton) v.findViewById(R.id.add_message_fab);
+        addEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Message msg = dbHelper.getMessageForNameAndRoom("Daniel Chen", room);
                 Bundle bundle = new Bundle();
-                if (msg != null)
-                    bundle.putString("MESSAGE", msg.getStatus());
                 bundle.putString("ROOM", room);
                 Intent intent = new Intent(v.getContext(), UpdateMessageActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
+
+//        // Set behavior of EditText
+//        EditText updateMessage = (EditText) v.findViewById(R.id.update_message);
+//        updateMessage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Message msg = dbHelper.getMessageForNameAndRoom("Daniel Chen", room);
+//                Bundle bundle = new Bundle();
+//                if (msg != null)
+//                    bundle.putString("MESSAGE", msg.getStatus());
+//                bundle.putString("ROOM", room);
+//                Intent intent = new Intent(v.getContext(), UpdateMessageActivity.class);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
         return v;
     }
 

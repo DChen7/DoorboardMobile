@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 public class UpdateMessageActivity extends AppCompatActivity {
 
@@ -61,7 +62,7 @@ public class UpdateMessageActivity extends AppCompatActivity {
             }
         });
 
-        Button clearButton = (Button) findViewById(R.id.clear_button);
+        ImageButton clearButton = (ImageButton) findViewById(R.id.clear_button);
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -29,29 +29,29 @@ public class Populator {
 
         // Check to see if entries have not already been added
         if (!dbHelper.roomContainsMessages("Iribe 203")) {
-            // Create dummy user 1
-            ContentValues values = new ContentValues();
-            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_ROOM, "Iribe 203");
-            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_NAME, "Daniel Chen");
-            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_STATUS, "Will be 5 min late");
-            Bitmap b1 = BitmapFactory.decodeResource(ctx.getResources(), R.mipmap.ic_profile_1);
-            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_PROFILE_PIC, DoorboardDbHelper.bitmapToBase64(b1));
-            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_DATE_TIME, "03-28-2017 8:15 AM");
-
-            // Insert the new row, returning the primary key value of the new row
-            wdb.insert(DoorboardContract.MessageEntry.TABLE_NAME, null, values);
-
-            // Create dummy user 2
-            values = new ContentValues();
-            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_ROOM, "Iribe 203");
-            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_NAME, "Testudo");
-            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_STATUS, "Out to lunch. Be back at 1");
-            Bitmap b2 = BitmapFactory.decodeResource(ctx.getResources(), R.mipmap.ic_profile_2);
-            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_PROFILE_PIC, DoorboardDbHelper.bitmapToBase64(b2));
-            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_DATE_TIME, "03-28-2017 12:15 PM");
-
-            // Insert the new row, returning the primary key value of the new row
-            wdb.insert(DoorboardContract.MessageEntry.TABLE_NAME, null, values);
+//            // Create dummy user 1
+//            ContentValues values = new ContentValues();
+//            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_ROOM, "Iribe 203");
+//            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_NAME, "Daniel Chen");
+//            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_STATUS, "Will be 5 min late");
+//            Bitmap b1 = BitmapFactory.decodeResource(ctx.getResources(), R.mipmap.ic_profile_1);
+//            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_PROFILE_PIC, DoorboardDbHelper.bitmapToBase64(b1));
+//            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_DATE_TIME, "03-28-2017 8:15 AM");
+//
+//            // Insert the new row, returning the primary key value of the new row
+//            wdb.insert(DoorboardContract.MessageEntry.TABLE_NAME, null, values);
+//
+//            // Create dummy user 2
+//            values = new ContentValues();
+//            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_ROOM, "Iribe 203");
+//            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_NAME, "Testudo");
+//            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_STATUS, "Out to lunch. Be back at 1");
+//            Bitmap b2 = BitmapFactory.decodeResource(ctx.getResources(), R.mipmap.ic_profile_2);
+//            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_PROFILE_PIC, DoorboardDbHelper.bitmapToBase64(b2));
+//            values.put(DoorboardContract.MessageEntry.COLUMN_NAME_DATE_TIME, "03-28-2017 12:15 PM");
+//
+//            // Insert the new row, returning the primary key value of the new row
+//            wdb.insert(DoorboardContract.MessageEntry.TABLE_NAME, null, values);
         }
 
         // Check to see if entries have not already been added
